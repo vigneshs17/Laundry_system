@@ -84,7 +84,7 @@ async def put_item(name: str, price: float, desc: str):
         return response
     raise HTTPException(404, "Item not found")
 
-@app.delete("items/{name}")
+@app.delete("/items/{name}")
 async def delete_item(name):
     response = await remove_item(name)
     if response.deleted_count==1:

@@ -17,7 +17,12 @@ function Items(props) {
         .then(res => {
             setItemList(res.data)
         })
-    });
+    }, []);
+
+    const deleteTodoHandler = (name) => {
+        axios.delete(`http://localhost:8000/items/${name}`).then(res =>
+        console.log(res.data))
+    }
 
     return (
         <div>
