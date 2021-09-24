@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import *
 app = FastAPI()
 
-origins = ['https://localhost:3000']
+origins = ['http://localhost:3000']
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,19 +21,19 @@ def read_root():
 
 # User methods
 
-@app.get("/api/users")
+@app.get("/users")
 async def get_users():
     response = await fetch_all_users()
     return response
 
-@app.get("/api/users/{name}", response_model=Item)
+@app.get("/users/{name}", response_model=Item)
 async def get_user_by_name(name: str):
     response = await fetch_one_user(name)
     if response:
         return response
     raise HTTPException(404, "User not found")
 
-@app.post("/api/users/", response_model=Item)
+@app.post("/users/", response_model=Item)
 async def post_user(user:User):
     response = await create_user(user.dict())
     if response:
@@ -48,7 +48,7 @@ async def post_user(user:User):
 #         return update_item
 #     raise HTTPException(404, "Item not found")
 
-@app.delete("/api/users/{name}")
+@app.delete("/users/{name}")
 async def delete_user(name):
     response = await remove_user(name)
     if response.deleted_count == 1:
@@ -58,33 +58,33 @@ async def delete_user(name):
 
 # Item methods
 
-@app.get("/api/items")
+@app.get("/items")
 async def get_items():
     response = await fetch_all_items()
     return response
 
-@app.get("/api/items/{name}", response_model=Item)
+@app.get("/items/{name}", response_model=Item)
 async def get_item_by_name(name: str):
     response = await fetch_one_item(name)
     if response:
         return response
     raise HTTPException(404, "Item not found")
 
-@app.post("/api/items/", response_model=Item)
+@app.post("/items/", response_model=Item)
 async def post_item(item:Item):
     response = await create_item(item.dict())
     if response:
         return response
     raise HTTPException(400, "Something went wrong")
 
-@app.put("/api/item/{name}", response_model=Item)
+@app.put("/item/{name}", response_model=Item)
 async def put_item(name: str, price: float, desc: str):
     response = await update_item(name, price, desc)
     if response:
         return response
     raise HTTPException(404, "Item not found")
 
-@app.delete("/api/items/{name}")
+@app.delete("items/{name}")
 async def delete_item(name):
     response = await remove_item(name)
     if response.deleted_count==1:
