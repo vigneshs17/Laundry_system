@@ -3,6 +3,9 @@ import axios from 'axios'
 import Item from "./Item";
 import _ from 'lodash';
 import ItemView from './ItemsListView';
+import {Button} from 'reactstrap';
+import {Link} from 'react-router-dom';
+
 
 function Items(props) {
 
@@ -19,13 +22,9 @@ function Items(props) {
         })
     }, []);
 
-    const deleteTodoHandler = (name) => {
-        axios.delete(`http://localhost:8000/items/${name}`).then(res =>
-        console.log(res.data))
-    }
-
     return (
         <div>
+            <Link to={`/items/new`}><Button color="light">Add new item</Button></Link>
             <ItemView itemList = {itemList}/>
         </div>
     );
