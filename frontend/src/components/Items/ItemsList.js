@@ -3,31 +3,72 @@ import axios from 'axios'
 import Item from "./Item";
 import _ from 'lodash';
 import ItemView from './ItemsListView';
-import {Button} from 'reactstrap';
+import {Table, Button, NavItem, NavLink} from 'reactstrap';
+
 import {Link} from 'react-router-dom';
 
 
-function Items(props) {
+class Items extends React.Component {
 
-    const [itemList, setItemList] = useState([{}])
-    const [name, setName] = useState('')
-    const [desc, setDesc] = useState('')
-    const [price, setPrice] = useState('')
+    constructor(props) {
+        super(props);
+        this.state = {
+            itemList: []
+        }
+
+        this.handleDelete = this.handleDelete.bind(this);
+
+    }
 
     // read all todos 
-    useEffect(() => {
+    componentDidMount() {
         axios.get('http://localhost:8000/items')
         .then(res => {
-            setItemList(res.data)
+            this.setState({itemList: res.data})
         })
-    }, []);
+    }
 
-    return (
-        <div>
-            <Link to={`/items/new`}><Button color="light">Add new item</Button></Link>
-            <ItemView itemList = {itemList}/>
-        </div>
-    );
+    handleDelete(name) {
+        axios.delete(`http://localhost:8000/items/${name}`).then(res => {
+            this.setState(previousState => {
+              return {
+                itemList: previousState.itemList.filter(i => i.name !== name)
+              };
+            });
+          })
+    }
+
+    render() {
+        return (
+            <div>
+                <Link to={`/items/new`}><Button color="light">Add new item</Button></Link>
+                <Table bordered>
+                <thead>
+                    <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th colSpan="3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.state.itemList.map(item => 
+                        <tr key={item.id}> 
+                            <td>{item.name}</td>
+                            <td>{item.price}</td>
+                            <td>{item.desc}</td>
+                            <td>
+                                <Link to={`/items/${item.name}`}><Button color="primary">View</Button></Link>
+                            </td>
+                            <td><Button color="secondary">Edit</Button></td>
+                            <td><Button color="danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(item.name)}}>Delete</Button></td>
+                        </tr>    
+                    )}
+                </tbody>
+            </Table>
+            </div>
+        );
+    }
 }
 
 export default Items;

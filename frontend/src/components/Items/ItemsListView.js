@@ -21,7 +21,7 @@ function ItemView(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {props.itemList.map(item => 
+                    {this.props.itemList.map(item => 
                         <tr key={item.id}> 
                             <td>{item.name}</td>
                             <td>{item.price}</td>

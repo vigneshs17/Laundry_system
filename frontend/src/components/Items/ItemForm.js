@@ -35,7 +35,6 @@ class ItemForm extends React.Component {
                 'price': this.state.price,
                 'desc': this.state.desc
             }).then(res => console.log(res))
-            alert('Item created successfully.');
         }
         else {
             this.state.errorMsg = 'Please fill out all the fields.';
