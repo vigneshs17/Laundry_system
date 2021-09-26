@@ -1,18 +1,29 @@
-import {useState, setState} from 'react';
+import React, {useState, setState} from 'react';
 import axios from 'axios'
 
-const ItemForm = () => {
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState('')
-    const [desc, setDesc] = useState('')
+class ItemForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            price: '',
+            desc: '',
+            errorMsg: '',
+        };
 
-    const [errorMsg, setErrorMsg] = useState('');
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-    const handleSubmit = (event) => {
-        
+    handleChange(event) {   
+        this.setState({
+            [event.target.name] : event.target.value
+        })
+    }
+
+    handleSubmit(event) {
         event.preventDefault();
-        const values = [name, price, desc];
-        let errorMsg = '';
+        const values = [this.state.name, this.state.price, this.state.desc];
         const allFieldsFilled = values.every((field) => {
             const value = `${field}`.trim();
             return value !== '' && value !== '0';
@@ -20,60 +31,61 @@ const ItemForm = () => {
 
         if(allFieldsFilled) {
             axios.post('http://localhost:8000/items/', {
-                'name': name,
-                'price': price,
-                'desc': desc
+                'name': this.state.name,
+                'price': this.state.price,
+                'desc': this.state.desc
             }).then(res => console.log(res))
             alert('Item created successfully.');
         }
         else {
-            errorMsg = 'Please fill out all the fields.';
+            this.state.errorMsg = 'Please fill out all the fields.';
         }
-        setErrorMsg(errorMsg);
+
+        this.props.history.push(`/items/${this.state.name}`)
     };
 
-    return (
-        <div className="main-form">
-            {errorMsg && <p className="errorMsg">{errorMsg}</p>}
-            <form>
-                    <label>Item name</label>
-                    <input
-                        className="input-control"
-                        type="text"
-                        name="name"
-                        placeholder="Enter the name of the item"
-                        onChange={event => setName(event.target.value)
-                    }
-                    />
-                    <br></br>
-                    <label>Item price</label>
-                    <input
-                        className="input-control"
-                        type="text"
-                        name="price"
-                        placeholder="Enter the price of the item"
-                        onChange={event => setPrice(event.target.value)
-                        }
+    render() {
+        return (
+            <div className="main-form">
+                {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
+                <form>
+                        <label>Item name</label>
+                        <input
+                            type="text"
+                            placeholder="Name of the item"
+                            name="name"
+                            value={this.state.name}
+                            onChange={this.handleChange}
                         />
-
-                    <br></br>
-                    <label>Item description</label>
-                    <input
-                        className="input-control"
-                        type="text"
-                        name="desc"
-                        placeholder="Enter the item description"
-                        onChange={event => setDesc(event.target.value)}
-                        />
-                    <br></br>
-
-
-                <button variant="primary" type="submit" className="submit-btn" onClick={handleSubmit}>
-                    Submit
-                </button>
-            </form>
-        </div>
-    );
+                        <br></br>
+                        <label>Item price</label>
+                        <input
+                            type="text"
+                            placeholder="Price of the item"
+                            name="price"
+                            value={this.state.price}
+                            onChange={this.handleChange}
+                            />
+    
+                        <br></br>
+                        <label>Item description</label>
+                        <input
+                            type="text"
+                            placeholder="Item description"
+                            name="desc"
+                            value={this.state.desc}
+                            onChange={this.handleChange}
+                            />
+                        <br></br>
+    
+    
+                    <button variant="primary" type="submit" className="submit-btn" onClick={this.handleSubmit}>
+                        Submit
+                    </button>
+                </form>
+            </div>
+        );
+    }
 };
 
 export default ItemForm;
