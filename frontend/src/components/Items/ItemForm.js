@@ -1,5 +1,6 @@
 import React, {useState, setState} from 'react';
 import axios from 'axios'
+import {Form, Button, Label, Input, FormGroup} from 'reactstrap';
 
 class ItemForm extends React.Component {
     constructor(props) {
@@ -47,41 +48,44 @@ class ItemForm extends React.Component {
         return (
             <div className="main-form">
                 {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
-                <form>
-                        <label>Item name</label>
-                        <input
+                <Form>
+                    <FormGroup>
+                        <Label>Item name</Label>
+                        <Input
                             type="text"
                             placeholder="Name of the item"
                             name="name"
                             value={this.state.name}
                             onChange={this.handleChange}
                         />
-                        <br></br>
-                        <label>Item price</label>
-                        <input
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label>Item price</Label>
+                        <Input
                             type="text"
                             placeholder="Price of the item"
                             name="price"
                             value={this.state.price}
                             onChange={this.handleChange}
                             />
-    
-                        <br></br>
-                        <label>Item description</label>
-                        <input
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label>Item description</Label>
+                        <Input
                             type="text"
                             placeholder="Item description"
                             name="desc"
                             value={this.state.desc}
                             onChange={this.handleChange}
                             />
-                        <br></br>
-    
-    
-                    <button variant="primary" type="submit" className="submit-btn" onClick={this.handleSubmit}>
+                    </FormGroup>
+
+                    <Button color="success" type="submit" className="submit-btn" onClick={this.handleSubmit}>
                         Submit
-                    </button>
-                </form>
+                    </Button>
+                </Form>
             </div>
         );
     }

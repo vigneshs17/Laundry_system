@@ -41,7 +41,7 @@ class Items extends React.Component {
     render() {
         return (
             <div>
-                <Link to={`/items/new`}><Button color="light">Add new item</Button></Link>
+                <Link to={`/items/new`}><Button color="success">Add new item</Button></Link>
                 <Table bordered>
                 <thead>
                     <tr>

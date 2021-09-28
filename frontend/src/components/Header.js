@@ -1,35 +1,41 @@
-import React from 'react';
-import {Navbar, Nav, Container} from 'react-bootstrap';
-import {NavLink} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Navbar, NavbarBrand, Button, NavItem, Nav} from 'reactstrap';
+import {Link, NavLink} from 'react-router-dom';
 
-const Header = () => {
-    return (
-        <header>
-            <div className="navbar navbar-expand navbar-light bg-light">
-                <a className="navbar-brand" href="/">Laundry System</a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+class Header extends React.Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false
+        }
+        this.toggle = this.toggle.bind(this);
+    }
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item">
-                        <NavLink to="/items" className="link">
-                            Items List
-                        </NavLink>
-                    </li>
+    toggle() {
+        this.state.isOpen = !this.state.isOpen;
+    }
+
+    render() {
+        return (
+            <div>
+                <Navbar color="light" light expand="md">
+                    <NavbarBrand href="/">Laundry System</NavbarBrand>
+                    <Nav className="mr-auto" navbar>
+                        <NavItem>
+                            <NavLink to="/items">Items</NavLink>
+                        </NavItem>
+
+                        <NavItem>
+                            <NavLink to="/items">Users</NavLink>
+                        </NavItem>
+                        
+                    </Nav> 
                     
-                    <li className="nav-item">
-                        <NavLink to="/users" className="link">
-                            Users List
-                        </NavLink>
-                    </li>
-                </ul>
-                    </div> 
-                
+                </Navbar>
             </div>
-        </header>
-    );
+        );
+    }
 };
 
 

@@ -1,7 +1,6 @@
 import './App.css';
-import React, {useState, useEffect} from 'react';
-import axios from 'axios'
-import 'bootstrap/dist/css/bootstrap.css'
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import Header from './components/Header';
 import ItemsList from './components/Items/ItemsList';
 import ItemForm from './components/Items/ItemForm';
