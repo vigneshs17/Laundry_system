@@ -77,9 +77,9 @@ async def post_item(item:Item):
         return response
     raise HTTPException(400, "Something went wrong")
 
-@app.put("/item/{name}", response_model=Item)
-async def put_item(name: str, price: float, desc: str):
-    response = await update_item(name, price, desc)
+@app.put("/items/{name}", response_model=Item)
+async def put_item(item:Item):
+    response = await update_item(item.name, item.price, item.desc)
     if response:
         return response
     raise HTTPException(404, "Item not found")

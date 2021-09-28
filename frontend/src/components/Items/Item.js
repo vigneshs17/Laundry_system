@@ -43,7 +43,7 @@ class Item extends React.Component {
         
 
                     <Link to='/items'><Button color="primary">All items</Button></Link>
-                    <Link to='/items/'><Button color="secondary">Edit item</Button></Link>
+                    <Link to={`/items/${this.state.item.name}/edit`} params={{item : this.state.item}}><Button color="secondary">Edit item</Button></Link>
                     <Button color="danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(this.state.item.name)}}>Delete</Button>
 
                     </CardBody>

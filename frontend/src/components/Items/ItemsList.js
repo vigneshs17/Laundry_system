@@ -41,7 +41,7 @@ class Items extends React.Component {
     render() {
         return (
             <div>
-                <Link to={`/items/new`}><Button color="success">Add new item</Button></Link>
+                <Link to={`/items/new`} params={{editMode: true}}><Button color="success">Add new item</Button></Link>
                 <Table bordered>
                 <thead>
                     <tr>
@@ -60,7 +60,8 @@ class Items extends React.Component {
                             <td>
                                 <Link to={`/items/${item.name}`}><Button color="primary">View</Button></Link>
                             </td>
-                            <td><Button color="secondary">Edit</Button></td>
+                            <td><Link to={`/items/${item.name}/edit`} params={{item : item}}><Button color="secondary">Edit</Button></Link></td>
+
                             <td><Button color="danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(item.name)}}>Delete</Button></td>
                         </tr>    
                     )}

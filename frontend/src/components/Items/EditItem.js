@@ -1,12 +1,12 @@
-import React, {useState, setState} from 'react';
+import React, {Component, setState} from 'react';
 import axios from 'axios'
 import {Form, Button, Label, Input, FormGroup} from 'reactstrap';
 
-class ItemForm extends React.Component {
+class EditItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            name: this.props.match.params.name,
             price: '',
             desc: '',
             errorMsg: '',
@@ -30,17 +30,19 @@ class ItemForm extends React.Component {
             return value !== '' && value !== '0';
         });
 
+        
         if(allFieldsFilled) {
-            axios.post('http://localhost:8000/items/', {
+            axios.put(`http://localhost:8000/items/${this.state.name}`, {
                 'name': this.state.name,
                 'price': this.state.price,
                 'desc': this.state.desc
-            }).then(res => console.log(res))
+            }).then(alert('Item updated successfully.'), res => console.log(res.data))
+            
         }
         else {
             this.state.errorMsg = 'Please fill out all the fields.';
         }
-
+            
         this.props.history.push(`/items/${this.state.name}`)
     };
 
@@ -53,10 +55,9 @@ class ItemForm extends React.Component {
                         <Label>Item name</Label>
                         <Input
                             type="text"
-                            placeholder="Name of the item"
                             name="name"
+                            readOnly
                             value={this.state.name}
-                            onChange={this.handleChange}
                         />
                     </FormGroup>
 
@@ -64,9 +65,9 @@ class ItemForm extends React.Component {
                         <Label>Item price</Label>
                         <Input
                             type="text"
-                            placeholder="Price of the item"
                             name="price"
                             value={this.state.price}
+                            required
                             onChange={this.handleChange}
                             />
                     </FormGroup>
@@ -75,15 +76,15 @@ class ItemForm extends React.Component {
                         <Label>Item description</Label>
                         <Input
                             type="text"
-                            placeholder="Item description"
                             name="desc"
                             value={this.state.desc}
+                            required
                             onChange={this.handleChange}
                             />
                     </FormGroup>
 
                     <Button color="success" type="submit" className="submit-btn" onClick={this.handleSubmit}>
-                        Submit
+                        Update
                     </Button>
                 </Form>
             </div>
@@ -91,4 +92,4 @@ class ItemForm extends React.Component {
     }
 };
 
-export default ItemForm;
+export default EditItem;
