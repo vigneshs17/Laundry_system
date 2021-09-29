@@ -42,6 +42,7 @@ class Item(BaseModel):
         json_encoders = {ObjectId: str}
 
 class Invoice(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     created_at: datetime
     items: List[Item] = Field(...)
     username: str = Field(...)

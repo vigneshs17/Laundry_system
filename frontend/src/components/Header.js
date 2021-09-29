@@ -27,7 +27,7 @@ class Header extends React.Component {
                         </NavItem>
 
                         <NavItem>
-                            <NavLink to="/items">Users</NavLink>
+                            <NavLink to="/invoices">Invoices</NavLink>
                         </NavItem>
                         
                     </Nav> 

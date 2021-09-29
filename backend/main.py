@@ -151,11 +151,13 @@ async def delete_item(name):
 @app.get("/invoices")
 async def get_invoices():
     response = await fetch_all_invoices()
+    print(response)
     return response
 
-@app.get("/invoices{id}")
-async def get_invoice_by_id(id):
+@app.get("/invoices/{id}", response_model=Invoice)
+async def get_invoice_by_id(id: str):
     response = await fetch_one_invoice(id)
+    print(response)
     if response:
         return response
     raise HTTPException(404, "Invoice not found")

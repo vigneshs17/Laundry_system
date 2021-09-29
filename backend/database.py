@@ -1,5 +1,5 @@
 from model import User, Item, Invoice
-
+from bson import ObjectId
 import motor.motor_asyncio
 
 client = motor.motor_asyncio.AsyncIOMotorClient('mongodb://localhost:27017')
@@ -40,6 +40,7 @@ async def remove_user(name):
 # Item methods
 async def fetch_one_item(name):
     item = await items.find_one({"name":name})
+    print(type(item['_id']))
     return item
 
 async def fetch_all_items():
@@ -70,7 +71,9 @@ async def remove_item(name):
 
 
 async def fetch_one_invoice(id):
-    invoice = await invoices.find_one({"id": id})
+    print(type(ObjectId(id)))
+    invoice = await invoices.find_one({"_id": ObjectId(id)})
+    print(invoice)
     return invoice
 
 async def fetch_all_invoices():
