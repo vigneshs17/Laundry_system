@@ -1,5 +1,4 @@
-import Item from "./Item";
-import {Table, Button, NavItem, NavLink} from 'reactstrap';
+import {Table, Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import axios from 'axios'
 import React from "react";

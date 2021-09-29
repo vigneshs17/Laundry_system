@@ -1,10 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import axios from 'axios'
-import Item from "./Item";
 import _ from 'lodash';
-import ItemView from './ItemsListView';
-import {Table, Button, NavItem, NavLink} from 'reactstrap';
-
+import {Table, Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
 
@@ -15,9 +12,7 @@ class Items extends React.Component {
         this.state = {
             itemList: []
         }
-
         this.handleDelete = this.handleDelete.bind(this);
-
     }
 
     // read all todos 
@@ -31,17 +26,17 @@ class Items extends React.Component {
     handleDelete(name) {
         axios.delete(`http://localhost:8000/items/${name}`).then(res => {
             this.setState(previousState => {
-              return {
-                itemList: previousState.itemList.filter(i => i.name !== name)
-              };
+                return {
+                    itemList: previousState.itemList.filter(i => i.name !== name)
+                };
             });
-          })
+        })
     }
 
     render() {
         return (
             <div>
-                <Link to={`/items/new`} params={{editMode: true}}><Button color="success">Add new item</Button></Link>
+                <Link to={`/items/new`}><Button color="success">Add new item</Button></Link>
                 <Table bordered>
                 <thead>
                     <tr>
@@ -57,11 +52,8 @@ class Items extends React.Component {
                             <td>{item.name}</td>
                             <td>{item.price}</td>
                             <td>{item.desc}</td>
-                            <td>
-                                <Link to={`/items/${item.name}`}><Button color="primary">View</Button></Link>
-                            </td>
+                            <td><Link to={`/items/${item.name}`}><Button color="primary">View</Button></Link></td>
                             <td><Link to={`/items/${item.name}/edit`} params={{item : item}}><Button color="secondary">Edit</Button></Link></td>
-
                             <td><Button color="danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(item.name)}}>Delete</Button></td>
                         </tr>    
                     )}

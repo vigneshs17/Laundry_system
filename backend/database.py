@@ -1,4 +1,4 @@
-from model import User, Item
+from model import User, Item, Invoice
 
 import motor.motor_asyncio
 
@@ -9,7 +9,7 @@ users = database.users
 items = database.items
 invoices = database.invoices
 
-# User methods
+# User methods        
 async def fetch_one_user(name):
     item = await users.find_one({"name":name})
     return item
@@ -66,31 +66,31 @@ async def update_item(name, price, desc):
 
 async def remove_item(name):
     delete_result = await items.delete_one({"name": name})
-
     return delete_result
 
 
-# async def fetch_one_invoice(id):
-#     invoice = await invoices.find_one({"id": id})
-#     return invoice
+async def fetch_one_invoice(id):
+    invoice = await invoices.find_one({"id": id})
+    return invoice
 
-# async def fetch_all_invoices():
-#     invoicesList = []
-#     cursor = invoices.find({})
-#     async for invoice in cursor:
-#         invoicesList.append(Invoice(**invoice))     # Invoice is defined in model.py
-#     return invoicesList
+async def fetch_all_invoices():
+    invoicesList = []
+    cursor = invoices.find({})
+    async for invoice in cursor:
+        invoicesList.append(Invoice(**invoice))     # Invoice is defined in model.py
+    return invoicesList
 
-# async def create_invoice(invoice):
-#     result = await invoices.insert_one(invoice)
-#     return invoice
+async def create_invoice(invoice):
+    result = await invoices.insert_one(invoice)
+    return invoice
 
-# async def update_invoice(id, items_list):
-#     await invoices.update_one({"id": id},{"$set": {
-#         "items_list": items_list
-#     }})
-#     document = await invoices.find_one({"id": id})
-#     return document
+async def update_invoice(id, items):
+    update_result = await invoices.update_one({"id": id},{"$set": {
+        "items": items
+    }})
+    if update_result.modified_count == 1:
+        updated_invoice = await invoices.find_one({"id": id})
+        return updated_invoice
 
 
     

@@ -1,4 +1,4 @@
-import React, {Component, setState} from 'react';
+import React from 'react';
 import axios from 'axios'
 import {Form, Button, Label, Input, FormGroup} from 'reactstrap';
 
