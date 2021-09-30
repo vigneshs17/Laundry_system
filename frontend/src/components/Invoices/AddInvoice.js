@@ -34,9 +34,18 @@ class AddInvoice extends React.Component {
 
     handleAddItem(item) {
         console.log(item);
-        this.state.items.push(item);
-        alert('Item added to invoice successfully.')
+        const items = this.state.items;
+        items.push(item);
+        this.setState({items: items});
         console.log(this.state.items);
+    }
+
+    handleRemoveItem(item) {
+        const index = this.state.items.indexOf(item);
+        if(index>=0) {
+            this.state.items.splice(index, 1);
+        }
+        this.setState({items: this.state.items});
     }
 
     handleSubmit(event) {
@@ -82,6 +91,8 @@ class AddInvoice extends React.Component {
         return (
             <div className="main-form">
                 {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
+                
+
                 <Form>
                     <FormGroup>
                         <Label>User name</Label>
@@ -94,7 +105,30 @@ class AddInvoice extends React.Component {
                         />
                     </FormGroup>
 
+                    <h2>Items in cart</h2>
                     <Table bordered>
+                        
+                        <thead>
+                            <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.items.map(item => 
+                                <tr key={item.id}> 
+                                    <td>{item.name}</td>
+                                    <td>{item.price}</td>
+                                    <td>{item.desc}</td>
+                                    <td><Button color="danger" onClick={() => {this.handleRemoveItem(item)}}>Remove item from invoice</Button></td>
+
+                                </tr>    
+                            )}
+                        </tbody>
+                    </Table>
+                    <Table bordered size="sm">
                         <thead>
                             <tr>
                             <th>Name</th>
