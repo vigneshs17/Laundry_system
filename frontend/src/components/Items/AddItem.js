@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import {Form, Button, Label, Input, FormGroup} from 'reactstrap';
+import './AddItem.css';
 
 class AddItem extends React.Component {
     constructor(props) {
@@ -48,8 +49,9 @@ class AddItem extends React.Component {
         return (
             <div className="main-form">
                 {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
-                <Form>
-                    <FormGroup>
+                <h2>Create new item</h2>
+                <Form className="form">
+                    <FormGroup className="from-group">
                         <Label>Item name</Label>
                         <Input
                             type="text"
@@ -59,7 +61,7 @@ class AddItem extends React.Component {
                         />
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup className="from-group">
                         <Label>Item price</Label>
                         <Input
                             type="text"
@@ -69,7 +71,7 @@ class AddItem extends React.Component {
                             />
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup className="from-group">
                         <Label>Item description</Label>
                         <Input
                             type="text"
@@ -79,7 +81,7 @@ class AddItem extends React.Component {
                             />
                     </FormGroup>
 
-                    <Button color="success" type="submit" className="submit-btn" onClick={this.handleSubmit}>
+                    <Button className="btn btn-submit" color="success" type="submit" className="submit-btn" onClick={this.handleSubmit}>
                         Submit
                     </Button>
                 </Form>

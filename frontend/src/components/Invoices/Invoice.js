@@ -3,6 +3,8 @@ import React from "react";
 import {Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Table} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import './Invoice.css';
+
 class Invoice extends React.Component {
     constructor(props) {
         super(props);
@@ -42,19 +44,18 @@ class Invoice extends React.Component {
     render() {
         return (
             <div className="item-container" key={this.state.invoice.id}>
-                <Card>
+                <Card className="card">
                     <CardBody>
-                    <CardTitle tag="h5">Customer name</CardTitle>
-                    <CardTitle tag="h5">{this.state.invoice.username}</CardTitle>
-                    <CardSubtitle tag="h6">Date of purchase: {this.state.invoice.created_at} </CardSubtitle>
+                    <CardTitle tag="h3">Customer name: {this.state.invoice.username}</CardTitle>
+                    <CardSubtitle tag="h5">Date of purchase: {this.state.invoice.created_at} </CardSubtitle>
                     <CardText>
-                        <Table>
+                        <Table className="table">
                             <thead>
                                 <tr>
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Description</th>
-                                <th colSpan="3">Actions</th>
+                                <th colSpan="3"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,12 +70,11 @@ class Invoice extends React.Component {
                             </tbody>
                         </Table>
                     </CardText>
-                    <CardText>Total amount: {this.state.invoice.total_amount} </CardText>
-                    <CardText>Total quantity: {this.state.invoice.total_number} </CardText>
+                    <CardText tag="h6">Total amount: {this.state.invoice.total_amount} </CardText>
+                    <CardText tag="h6">Total quantity: {this.state.invoice.total_number} </CardText>
         
 
-                    <Link to='/invoices'><Button color="primary">All invoices</Button></Link>
-                    <Link to={`/invoices/${this.state.invoice.id}/edit`} params={{invoice : this.state.invoice}}><Button color="secondary">Edit invoice</Button></Link>
+                    <Link to='/invoices'><Button className="btn btn-all" color="primary">All invoices</Button></Link>
 
                     </CardBody>
 

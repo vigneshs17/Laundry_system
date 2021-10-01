@@ -1,0 +1,20 @@
+.items-table {
+    width: 95%;
+    margin: 2.5% 2.5%;
+}
+
+.btn-add {
+    margin: 2.5% 2.5% 0 2.5%;
+}
+
+.btn-view {
+    margin: 10px;
+}
+
+.btn-edit {
+    margin: 10px;
+}
+
+.btn-delete {
+    margin: 10px;
+}

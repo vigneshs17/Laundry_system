@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Navbar, NavbarBrand, Button, NavItem, Nav} from 'reactstrap';
 import {Link, NavLink} from 'react-router-dom';
-
+import './Header.css';
 class Header extends React.Component {
     
     constructor(props) {
@@ -20,14 +20,14 @@ class Header extends React.Component {
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">Laundry System</NavbarBrand>
+                    <NavbarBrand className="nav-brand" href="/">Laundry System</NavbarBrand>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
-                            <NavLink to="/items">Items</NavLink>
+                            <NavLink to="/items"><Button className="btn btn-header" color="primary">Items</Button></NavLink>
                         </NavItem>
 
                         <NavItem>
-                            <NavLink to="/invoices">Invoices</NavLink>
+                            <NavLink to="/invoices"><Button className="btn btn-header" color="primary">Invoices</Button></NavLink>
                         </NavItem>
                         
                     </Nav> 

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import {Form, Button, Label, Input, FormGroup, Table} from 'reactstrap';
+import './AddInvoice.css';
 
 class AddInvoice extends React.Component {
     constructor(props) {
@@ -91,10 +92,9 @@ class AddInvoice extends React.Component {
         return (
             <div className="main-form">
                 {this.state.errorMsg && <p className="errorMsg">{this.state.errorMsg}</p>}
-                
-
+                <h2>Create new invoice</h2>
                 <Form>
-                    <FormGroup>
+                    <FormGroup className="form-group">
                         <Label>User name</Label>
                         <Input
                             type="text"
@@ -106,7 +106,7 @@ class AddInvoice extends React.Component {
                     </FormGroup>
 
                     <h2>Items in cart</h2>
-                    <Table bordered>
+                    <Table className="table" bordered>
                         
                         <thead>
                             <tr>
@@ -122,13 +122,15 @@ class AddInvoice extends React.Component {
                                     <td>{item.name}</td>
                                     <td>{item.price}</td>
                                     <td>{item.desc}</td>
-                                    <td><Button color="danger" onClick={() => {this.handleRemoveItem(item)}}>Remove item from invoice</Button></td>
+                                    <td><Button className="btn btn-delete" color="danger" onClick={() => {this.handleRemoveItem(item)}}>Remove item from invoice</Button></td>
 
                                 </tr>    
                             )}
                         </tbody>
                     </Table>
-                    <Table bordered size="sm">
+
+                    <h2>Available items</h2>
+                    <Table  className="table" bordered>
                         <thead>
                             <tr>
                             <th>Name</th>
@@ -143,13 +145,15 @@ class AddInvoice extends React.Component {
                                     <td>{item.name}</td>
                                     <td>{item.price}</td>
                                     <td>{item.desc}</td>
-                                    <td><Button color="primary" onClick={() => {this.handleAddItem(item)}}>Add item to invoice</Button></td>
+                                    <td><Button className="btn btn-add" color="primary" onClick={() => {this.handleAddItem(item)}}>Add item to invoice</Button></td>
                                 </tr>    
                             )}
                         </tbody>
                     </Table>
+                    <h6>Total quantity: {this.state.total_number}</h6>
+                    <h6>Total amount: {this.state.total_amount}</h6>
 
-                    <Button color="success" type="submit" className="submit-btn" onClick={this.handleSubmit}>
+                    <Button className="btn btn-submit" color="success" type="submit" className="submit-btn" onClick={this.handleSubmit}>
                         Submit
                     </Button>
                 </Form>

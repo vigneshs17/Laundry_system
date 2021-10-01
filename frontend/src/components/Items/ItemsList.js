@@ -3,7 +3,7 @@ import axios from 'axios'
 import _ from 'lodash';
 import {Table, Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
-
+import './ItemsList.css';
 
 class Items extends React.Component {
 
@@ -36,8 +36,8 @@ class Items extends React.Component {
     render() {
         return (
             <div>
-                <Link to={`/items/new`}><Button color="success">Add new item</Button></Link>
-                <Table bordered>
+                <Link to={`/items/new`}><Button className="btn btn-add" color="success">Add new item</Button></Link>
+                <Table className="items-table" bordered>
                 <thead>
                     <tr>
                     <th>Name</th>
@@ -52,9 +52,9 @@ class Items extends React.Component {
                             <td>{item.name}</td>
                             <td>{item.price}</td>
                             <td>{item.desc}</td>
-                            <td><Link to={`/items/${item.name}`}><Button color="primary">View</Button></Link></td>
-                            <td><Link to={`/items/${item.name}/edit`} params={{item : item}}><Button color="secondary">Edit</Button></Link></td>
-                            <td><Button color="danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(item.name)}}>Delete</Button></td>
+                            <td><Link to={`/items/${item.name}`}><Button className="btn btn-view" color="primary">View</Button></Link></td>
+                            <td><Link to={`/items/${item.name}/edit`} params={{item : item}}><Button className="btn btn-edit" color="secondary">Edit</Button></Link></td>
+                            <td><Button className="btn btn-delete" color="danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(item.name)}}>Delete</Button></td>
                         </tr>    
                     )}
                 </tbody>

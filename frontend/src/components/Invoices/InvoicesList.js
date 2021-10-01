@@ -3,7 +3,7 @@ import axios from 'axios'
 import _ from 'lodash';
 import {Table, Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
-
+import './InvoicesList.css';
 
 class Invoices extends React.Component {
 
@@ -39,8 +39,8 @@ class Invoices extends React.Component {
     render() {
         return (
             <div>
-                <Link to={`/invoices/new`}><Button color="success">Add new invoice</Button></Link>
-                <Table bordered>
+                <Link to={`/invoices/new`}><Button className="btn btn-add" color="success">Add new invoice</Button></Link>
+                <Table className="invoices-table" bordered>
                     <thead>
                         <tr>
                         <th>Username</th>
@@ -55,8 +55,8 @@ class Invoices extends React.Component {
                                 <td>{invoice.username}</td>
                                 <td>{invoice.created_at}</td>
                                 <td>{invoice.total_amount}</td>
-                                <td><Link to={`/invoices/${invoice._id}`}><Button color="primary">View</Button></Link></td>
-                                <td><Link to={`/invoices/${invoice.id}/edit`} params={{invoice : invoice}}><Button color="secondary">Edit</Button></Link></td>
+                                <td><Link to={`/invoices/${invoice._id}`}><Button className="btn btn-view" color="primary">View</Button></Link></td>
+                                <td><Link to={`/invoices/${invoice.id}/edit`} params={{invoice : invoice}}><Button className="btn btn-edit" color="secondary">Edit</Button></Link></td>
                             </tr>    
                         )}
                     </tbody>

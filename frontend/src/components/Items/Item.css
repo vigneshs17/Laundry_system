@@ -1,0 +1,17 @@
+.card {
+    width: 50%;
+    margin: 5% 25% 5% 25%;
+    padding: 2.5%;
+}
+
+.btn-all {
+    margin: 10px 10px 10px 0;
+}
+
+.btn-edit {
+    margin: 10px;
+}
+
+.btn-delete {
+    margin: 10px;
+}
